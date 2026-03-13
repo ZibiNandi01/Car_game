@@ -14,12 +14,10 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxrlw"]
 specular_mode = 1
 vertex_color_use_as_albedo = true
+albedo_color = Color(0.6542321, 0.6542321, 0.654232, 1)
 albedo_texture = ExtResource("5_i6g32")
-uv1_scale = Vector3(12, 5, 5)
 uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebmjs"]
-albedo_color = Color(1, 0, 0, 1)
+uv1_world_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3dryh"]
 
@@ -44,7 +42,7 @@ FASTEST_TIME_LABEL = NodePath("../UI/Fastest_time")
 LAST_LAP = NodePath("../UI/Last_time")
 
 [node name="Car" parent="." unique_id=336185123 node_paths=PackedStringArray("SPEEDOMETER_LABEL") instance=ExtResource("1_ebmjs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8280835, 1.0945697, 0.24858713)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.7487, 1.0945697, 0.24858713)
 collision_layer = 129
 collision_mask = 129
 SPEEDOMETER_LABEL = NodePath("../UI/Speedometer")
@@ -58,11 +56,6 @@ shape = SubResource("WorldBoundaryShape3D_qxrlw")
 transform = Transform3D(70.16507, 0, 0, 0, 1, 0, 0, 0, 8.22626, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ebmjs")
 surface_material_override/0 = SubResource("StandardMaterial3D_qxrlw")
-
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1198872191]
-transform = Transform3D(1.0676479, 0, 0, 0, 5.36582, 0, 0, 0, 8.22626, 0, 4.8744483, 0)
-mesh = SubResource("PlaneMesh_ebmjs")
-surface_material_override/0 = SubResource("StandardMaterial3D_ebmjs")
 
 [node name="MeshInstance3D9" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1993407030]
 transform = Transform3D(136.72226, 0, -1.7174975, 0, 1, 0, 29.188437, 0, 8.0449705, -201.34143, 0, -28.297699)

@@ -12,6 +12,7 @@ var speed
 var air_density = 1.225
 var form_coefficent = 1
 var surface = 2
+var pedal_sens = 2
 
 func air_resistance(spd, dens, form, surf):
 	return (0.5 * dens *spd*spd*form*surf)
@@ -39,6 +40,7 @@ func _physics_process(delta):
 	speed = linear_velocity.length()
 	engine_force = int(Input.is_action_pressed("up")) * ENGINE_POWER * direction
 	brake = int(Input.is_action_pressed("down")) * BRAKE_POWER
+	print(str(engine_force)+ "  " + str(brake))
 	
 	var air_res = linear_velocity.normalized()	 * air_resistance(speed, air_density, form_coefficent, surface) *-1
 	apply_central_force(air_res)
