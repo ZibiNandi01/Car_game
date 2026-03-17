@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if lap_stert_time!=0:
-		last_lap = float(Time.get_ticks_msec() - lap_stert_time)/1000 + 50
+		last_lap = float(Time.get_ticks_msec() - lap_stert_time)/1000 + 60
 		#print(Time.get_ticks_msec())
 		if last_lap < fastest_time:
 			fastest_time = float(last_lap)
@@ -54,13 +54,20 @@ func _process(delta: float) -> void:
 			while last_lap >= 60:
 				last_lap_minute += 1
 				last_lap -= 60
-				print(last_lap_minute)
-			LAST_LAP.text = str("Last lap: " + str(int(last_lap_minute)) + ":" + str(last_lap))
+				
+				LAST_LAP.text = "Last lap: " + str(last_lap_minute) + ":" + str(last_lap)
 		else:
 			LAST_LAP.text = str("Last lap: ")
 	
 	if FASTEST_TIME_LABEL:
 		if fastest_time != 500000000:
-			FASTEST_TIME_LABEL.text = "Fastest lap: " + str(fastest_time)
+			fastest_lap_minute = 0
+			while fastest_time > 60:
+				fastest_lap_minute += 1
+				fastest_time -= 60
+				if fastest_time < 10:
+					FASTEST_TIME_LABEL.text = "Fastest lap: " + str(fastest_lap_minute) + ":0" + str(fastest_time)
+				else:
+					FASTEST_TIME_LABEL.text = "Fastest lap: " + str(fastest_lap_minute) + ":" + str(fastest_time)
 		else:
 			FASTEST_TIME_LABEL.text = str("Fastest lap: ")
