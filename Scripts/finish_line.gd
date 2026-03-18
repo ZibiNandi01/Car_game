@@ -6,25 +6,27 @@ extends Area3D
 
 var lap_stert_time=0
 var last_lap=0
+var last_lap_print
 var current_time
 var current_time_minute
-#var last_lap_minute
 var fastest_lap_minute
+var fastest_lap_print
 
 var fastest_time = 500000000
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_process(true)
-	CURRENT_TIME_LABEL.text = ""
-	FASTEST_TIME_LABEL.text = ""
-	LAST_LAP.text = ""
+	#CURRENT_TIME_LABEL.text = ""
+	#FASTEST_TIME_LABEL.text = ""
+	#LAST_LAP.text = ""
+
 
 
 func _on_body_entered(body: Node3D) -> void:
 	if lap_stert_time!=0:
-		last_lap = float(Time.get_ticks_msec() - lap_stert_time)/1000 + 60
-		#print(Time.get_ticks_msec())
+		last_lap = float(Time.get_ticks_msec() - lap_stert_time)/1000
+		print(Time.get_ticks_msec())
 		if last_lap < fastest_time:
 			fastest_time = float(last_lap)
 		#print("finish: ", last_lap)
@@ -37,8 +39,8 @@ func _process(delta: float) -> void:
 	if CURRENT_TIME_LABEL:
 		if lap_stert_time != 0:
 			current_time_minute = 0
-			
-			fastest_time = float(last_lap)
+			if last_lap < fastest_time:
+				fastest_time = float(last_lap)
 		#print("finish: ", last_lap)
 			current_time = float(Time.get_ticks_msec() - lap_stert_time) / 1000
 			while current_time >= 60:
@@ -50,14 +52,14 @@ func _process(delta: float) -> void:
 	
 	if LAST_LAP:
 		var last_lap_minute = 0
-		if last_lap != 0:
-			while last_lap >= 60:
-				last_lap_minute += 1
-				last_lap -= 60
-				
-				LAST_LAP.text = "Last lap: " + str(last_lap_minute) + ":" + str(last_lap)
-		else:
+		if last_lap == 0:
 			LAST_LAP.text = str("Last lap: ")
+		else:
+			last_lap_print = last_lap
+			while last_lap_print >= 60:
+				last_lap_minute += 1
+				last_lap_print -= 60
+				LAST_LAP.text = "Last lap: " + str(last_lap_minute) + ":" + str(last_lap_print)
 	
 	if FASTEST_TIME_LABEL:
 		if fastest_time != 500000000:
