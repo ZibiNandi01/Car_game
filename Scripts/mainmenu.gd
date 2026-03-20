@@ -1,7 +1,8 @@
 extends VBoxContainer
 
 @export var button_play: Button
-@export var button_user_manual:Button
+@export var button_user_manual: Button
+@export var button_exit: Button
 @export var label_user_manual: Label
 @export var button_back: Button
 	
@@ -12,6 +13,9 @@ func _ready():
 
 	button_user_manual.text = "User manual"
 	button_user_manual.pressed.connect(_button_pressed_user_manual)
+	
+	button_exit.text = "Exit"
+	button_exit.pressed.connect(_button_pressed_exit)
 	
 	var text = FileAccess.open("res://User_manual.txt",FileAccess.READ)
 	label_user_manual.text = text.get_as_text()
@@ -27,6 +31,7 @@ func _button_pressed_play():
 func _button_pressed_user_manual():
 	$Play.visible = false
 	$ButtonUserManual.visible = false
+	$Exit.visible = false
 	$LabelUserManual.visible = true
 	$Back.visible = true
 	
@@ -35,4 +40,7 @@ func _button_pressed_back():
 	$Back.visible = false
 	$Play.visible = true
 	$ButtonUserManual.visible = true
+	$Exit.visible = true
 	
+func _button_pressed_exit():
+	get_tree().quit()

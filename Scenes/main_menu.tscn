@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainMenuContainer" type="VBoxContainer" parent="." unique_id=1023010913 node_paths=PackedStringArray("button_play", "button_user_manual", "label_user_manual", "button_back")]
+[node name="MainMenuContainer" type="VBoxContainer" parent="." unique_id=1023010913 node_paths=PackedStringArray("button_play", "button_user_manual", "button_exit", "label_user_manual", "button_back")]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -22,6 +22,7 @@ offset_bottom = -113.0
 script = ExtResource("2_1ehe0")
 button_play = NodePath("Play")
 button_user_manual = NodePath("ButtonUserManual")
+button_exit = NodePath("Exit")
 label_user_manual = NodePath("LabelUserManual")
 button_back = NodePath("Back")
 
@@ -32,6 +33,9 @@ size_flags_vertical = 0
 [node name="ButtonUserManual" type="Button" parent="MainMenuContainer" unique_id=267216700]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="Exit" type="Button" parent="MainMenuContainer" unique_id=1695517006]
+layout_mode = 2
 
 [node name="LabelUserManual" type="Label" parent="MainMenuContainer" unique_id=1230450570]
 visible = false
