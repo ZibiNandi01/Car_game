@@ -132,15 +132,13 @@ offset_bottom = 41.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=49036259]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 866.0
 offset_top = 29.0
 offset_right = -51.0
-offset_bottom = -469.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = 180.0
+grow_horizontal = 0
 
 [node name="Current_time" type="Label" parent="UI/VBoxContainer" unique_id=965927838]
 layout_mode = 2
