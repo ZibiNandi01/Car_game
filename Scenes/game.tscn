@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bm5fhcpbtbjwp" path="res://Scripts/finish_line.gd" id="3_i6g32"]
 [ext_resource type="Texture2D" uid="uid://c44p6f8t1d6p0" path="res://Assets/20260307_085058.jpg" id="4_3dryh"]
 [ext_resource type="Texture2D" uid="uid://pnwj3hu3hr4u" path="res://Assets/20260307_085032(1).jpg" id="5_i6g32"]
+[ext_resource type="PackedScene" uid="uid://ut5h8thkptkc" path="res://Scenes/garage.tscn" id="6_i6g32"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i6g32"]
 
@@ -113,6 +114,9 @@ transform = Transform3D(433.52203, 0, 0, 0, 1, 0, 0, 0, 257.5614, 0, -0.1, 0)
 mesh = SubResource("PlaneMesh_3dryh")
 surface_material_override/0 = SubResource("StandardMaterial3D_wowpa")
 
+[node name="Garage" parent="." unique_id=364090337 instance=ExtResource("6_i6g32")]
+transform = Transform3D(-1.0770373e-07, 0, -2.0999997, 0, 4.4303017, 0, 2.463974, 0, -9.179391e-08, -26.866947, 0.16699287, 12.420441)
+
 [node name="UI" type="Control" parent="." unique_id=2069332504]
 layout_mode = 3
 anchors_preset = 15
@@ -122,6 +126,7 @@ offset_right = 2.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Speedometer" type="Label" parent="UI" unique_id=6324331]
 layout_mode = 0

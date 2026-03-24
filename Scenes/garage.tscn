@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ut5h8thkptkc"]
+
+[ext_resource type="Script" uid="uid://ddc5elvoo12fe" path="res://Scripts/garage.gd" id="1_23ik3"]
+[ext_resource type="PackedScene" uid="uid://da0m2t87vjmcd" path="res://Scenes/garage_ui.tscn" id="2_xftrr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sdivo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0nu3q"]
+
+[node name="Garage" type="Area3D" unique_id=364090337 node_paths=PackedStringArray("garage_ui")]
+script = ExtResource("1_23ik3")
+garage_ui = NodePath("Garage UI")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1055211159]
+transform = Transform3D(1.8369442, 0, 0, 0, 1.1912551, 0, 0, 0, 3.8870518, 0, 0.5047183, 0)
+shape = SubResource("BoxShape3D_sdivo")
+debug_color = Color(0, 1, 0, 0.5019608)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=337278295]
+transform = Transform3D(1.6948934, 0, 0, 0, 0.01, 0, 0, 0, 4.0930295, 0, -0.059209585, 0)
+mesh = SubResource("BoxMesh_0nu3q")
+
+[node name="Garage UI" parent="." unique_id=188278208 instance=ExtResource("2_xftrr")]
+visible = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
