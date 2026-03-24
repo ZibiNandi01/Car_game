@@ -13,9 +13,10 @@ var wheel_list = [WheelFL, WheelFR, WheelRL, WheelRR]
 @export var ENGINE_POWER = 50
 @export var BRAKE_POWER = 10
 
+@export var steering_slider: HSlider
+
 var stearing_speed = 1.2
 var returning_speed = 1.5
-var max_steering
 
 var direction = 1
 var speed
@@ -27,30 +28,46 @@ var air_density = 1.225
 var form_coefficent = 1
 var surface = 2
 
+var steering_type = "slider"
+
 func air_resistance(spd, dens, form, surf):
 	return (0.5 * dens *spd*spd*form*surf)
 	
 
+func steering_value(input, dead_zone, max):
+	if abs(input) < dead_zone:
+		return 0
+	elif input > 0:
+		return (input-dead_zone) * max 
+	else:
+		return (input+dead_zone) * max 
+
+
+
 func _physics_process(delta):
-	#max_steering = MAX_STEER
 	
 	WheelFL.suspension_stiffness = Global.suspension_stiffnessF
 	WheelFR.suspension_stiffness = Global.suspension_stiffnessF
 	WheelRL.suspension_stiffness = Global.suspension_stiffnessR
 	WheelRR.suspension_stiffness = Global.suspension_stiffnessR
 	
-	if steering>0:
-		if Input.get_axis("right", "left") > steering:
-			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
+	if steering_type == "button":
+		if steering>0:
+			if Input.get_axis("right", "left") > steering:
+				steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
+			else:
+				steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *returning_speed)
+		elif steering<0:
+			if Input.get_axis("right", "left") < steering:
+				steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
+			else:
+				steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *returning_speed)
 		else:
-			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *returning_speed)
-	elif steering<0:
-		if Input.get_axis("right", "left") < steering:
 			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
-		else:
-			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *returning_speed)
-	else:
-		steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
+			
+	if steering_type == "slider":
+		steering  = steering_value(steering_slider.value*-1, .1, MAX_STEER)
+	
 			
 	if Input.is_action_pressed("ahead"):
 		direction = 1

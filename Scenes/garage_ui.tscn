@@ -15,41 +15,59 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=627942625 node_paths=PackedStringArray("front_susp_stiff_label", "front_susp_stiff", "button_exit")]
+[node name="Panel" type="Panel" parent="." unique_id=1116320958]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 426.0
-offset_top = 324.0
-offset_right = -426.0
-offset_bottom = -324.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -300.0
+offset_right = 175.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=627942625 node_paths=PackedStringArray("front_susp_stiff_label", "front_susp_stiff", "rear_susp_stiff_label", "rear_susp_stiff", "button_exit")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 55.0
+grow_horizontal = 2
 script = ExtResource("1_cs0as")
-front_susp_stiff_label = NodePath("Panel/SuspensionStiffnessFLabel")
+front_susp_stiff_label = NodePath("SuspensionStiffnessFLabel")
 front_susp_stiff = NodePath("SuspensionStiffnessF")
+rear_susp_stiff_label = NodePath("SuspensionStiffnessRLabel")
+rear_susp_stiff = NodePath("SuspensionStiffnessR")
 button_exit = NodePath("MainMenu")
 
-[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1708398131]
+[node name="SuspensionStiffnessFLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1722511317]
 layout_mode = 2
-
-[node name="SuspensionStiffnessFLabel" type="Label" parent="VBoxContainer/Panel" unique_id=1722511317]
-layout_mode = 0
-offset_top = 4.0
-offset_right = 300.0
-offset_bottom = 27.0
 label_settings = SubResource("LabelSettings_cs0as")
-autowrap_mode = 3
 
-[node name="SuspensionStiffnessF" type="HSlider" parent="VBoxContainer" unique_id=95782044]
+[node name="SuspensionStiffnessF" type="HSlider" parent="Panel/VBoxContainer" unique_id=95782044]
 layout_mode = 2
 theme = SubResource("Theme_gtvex")
 min_value = 50.0
 max_value = 180.0
 value = 50.0
 
-[node name="MainMenu" type="Button" parent="VBoxContainer" unique_id=1937374270]
+[node name="SuspensionStiffnessRLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2043421797]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_cs0as")
+
+[node name="SuspensionStiffnessR" type="HSlider" parent="Panel/VBoxContainer" unique_id=122705729]
+layout_mode = 2
+theme = SubResource("Theme_gtvex")
+min_value = 50.0
+max_value = 180.0
+value = 50.0
+
+[node name="MainMenu" type="Button" parent="Panel/VBoxContainer" unique_id=1937374270]
 layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/MainMenu" to="VBoxContainer" method="_on_exit_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MainMenu" to="Panel/VBoxContainer" method="_on_exit_pressed"]
