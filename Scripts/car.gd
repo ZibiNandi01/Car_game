@@ -12,11 +12,12 @@ var wheel_list = [WheelFL, WheelFR, WheelRL, WheelRR]
 
 @export var MAX_STEER = 0.5
 @export var ENGINE_POWER = 50000
-@export var BRAKE_POWER = 1000
+@export var BRAKE_POWER = 50
 
+@export var control: Control
 @export var steering_slider: HSlider
-@export var gas_button: Button
-@export var brake_button: Button
+@export var gas_button: TouchScreenButton
+@export var brake_button: TouchScreenButton
 
 @export var self_node: VehicleBody3D
 
@@ -95,7 +96,7 @@ func _physics_process(delta):
 	
 		
 	if Global.steering_type == "Button":
-		steering_slider.visible = false
+		control.visible = false
 		if steering>0:
 			if Input.get_axis("right", "left") > steering:
 				steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
@@ -109,32 +110,40 @@ func _physics_process(delta):
 		else:
 			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
 			
-		WheelFL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
-		WheelFR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
-		WheelRL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
-		WheelRR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
-		
 		if rpm < 9000:
 			torque = torque_calc(rpm,-1/56250000,115000/56250000, 0.5)
 			engine_force = int(Input.is_action_pressed("up")) * ENGINE_POWER * gear_ratio[actual_gear+1] * drop_gear * CWP  * torque
 		else:
 			engine_force = 0
+		WheelFL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
+		WheelFR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
+		WheelRL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
+		WheelRR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
+			
+
 			
 	if Global.steering_type == "Slider":
-		steering_slider.visible = true
+		control.visible = true
 		steering  = steering_value(steering_slider.value*-1, .1, MAX_STEER)
 		
 		if rpm < 9000:
-			torque = torque_calc(rpm,-1/56250000,115000/56250000, 0.5)
-			engine_force = int(gas_button.button_pressed) * ENGINE_POWER * gear_ratio[actual_gear+1] * drop_gear * CWP  * torque
+			torque = torque_calc(rpm,-1/56250000,115000/56250000, 0.5)/2
+			engine_force = int(gas_button.is_pressed()) * ENGINE_POWER * gear_ratio[actual_gear+1] * drop_gear * CWP  * torque
 		else:
 			engine_force = 0
-			
-		WheelFL.brake = int(brake_button.button_pressed) * BRAKE_POWER * brake_balance
-		WheelFR.brake = int(brake_button.button_pressed) * BRAKE_POWER * brake_balance
-		WheelRL.brake = int(brake_button.button_pressed) * BRAKE_POWER * (1-brake_balance)
-		WheelRR.brake = int(brake_button.button_pressed) * BRAKE_POWER * (1-brake_balance)
 		
+		if rpm > 9000 and actual_gear < 6:
+			actual_gear += 1
+		if rpm < 6500 and actual_gear > 1:
+			actual_gear -= 1
+				
+		WheelFL.brake = int(brake_button.is_pressed()) * BRAKE_POWER * brake_balance
+		WheelFR.brake = int(brake_button.is_pressed()) * BRAKE_POWER * brake_balance
+		WheelRL.brake = int(brake_button.is_pressed()) * BRAKE_POWER * (1-brake_balance)
+		WheelRR.brake = int(brake_button.is_pressed()) * BRAKE_POWER * (1-brake_balance)
+		
+		
+	
 			
 	if Input.is_action_pressed("gear_up") and dt > 15 and actual_gear < 6:
 		actual_gear += 1

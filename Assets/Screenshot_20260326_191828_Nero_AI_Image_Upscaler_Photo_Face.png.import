@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cux6bu1wc4emu"
 path.s3tc="res://.godot/imported/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png-c76e4cfc61391d4e7fc06bdab881c0ae.s3tc.ctex"
+path.etc2="res://.godot/imported/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png-c76e4cfc61391d4e7fc06bdab881c0ae.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png"
-dest_files=["res://.godot/imported/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png-c76e4cfc61391d4e7fc06bdab881c0ae.s3tc.ctex"]
+dest_files=["res://.godot/imported/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png-c76e4cfc61391d4e7fc06bdab881c0ae.s3tc.ctex", "res://.godot/imported/Screenshot_20260326_191828_Nero_AI_Image_Upscaler_Photo_Face.png-c76e4cfc61391d4e7fc06bdab881c0ae.etc2.ctex"]
 
 [params]
 

@@ -22,6 +22,7 @@ mesh = SubResource("BoxMesh_0nu3q")
 
 [node name="Garage UI" parent="." unique_id=188278208 instance=ExtResource("2_xftrr")]
 visible = false
+mouse_filter = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

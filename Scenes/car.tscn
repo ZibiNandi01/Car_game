@@ -11,7 +11,21 @@
 resource_name = "wheel"
 albedo_color = Color(0.29586652, 0.2958665, 0.2958665, 1)
 
-[node name="Car" type="VehicleBody3D" unique_id=336185123 node_paths=PackedStringArray("SPEEDOMETER_LABEL", "GearLabel", "steering_slider", "gas_button", "brake_button", "self_node", "CURRENT_TIME_LABEL", "FASTEST_TIME_LABEL", "LAST_LAP")]
+[sub_resource type="Gradient" id="Gradient_yi23e"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u41r7"]
+gradient = SubResource("Gradient_yi23e")
+
+[sub_resource type="Gradient" id="Gradient_go66d"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.9490196, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1sfmx"]
+gradient = SubResource("Gradient_go66d")
+
+[node name="Car" type="VehicleBody3D" unique_id=336185123 node_paths=PackedStringArray("SPEEDOMETER_LABEL", "GearLabel", "control", "steering_slider", "gas_button", "brake_button", "self_node", "CURRENT_TIME_LABEL", "FASTEST_TIME_LABEL", "LAST_LAP")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mass = 800.0
 center_of_mass_mode = 1
@@ -22,9 +36,10 @@ SPEEDOMETER_LABEL = NodePath("UI/Speedometer")
 GearLabel = NodePath("UI/Gear")
 ENGINE_POWER = 5000
 BRAKE_POWER = 70
+control = NodePath("UI/Control")
 steering_slider = NodePath("UI/Control/Steering")
-gas_button = NodePath("UI/Control/Gas_pedal")
-brake_button = NodePath("UI/Control/Brake")
+gas_button = NodePath("UI/Control/HBoxContainer/GasButton")
+brake_button = NodePath("UI/Control/HBoxContainer/BrakeButton")
 self_node = NodePath(".")
 CURRENT_TIME_LABEL = NodePath("UI/VBoxContainer/Current_time")
 FASTEST_TIME_LABEL = NodePath("UI/VBoxContainer/Fastest_time")
@@ -36,7 +51,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5786963, 0, 0)
 [node name="auto0" parent="MeshInstance3D" unique_id=1325753642 instance=ExtResource("2_go66d")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1959653364]
-transform = Transform3D(3.3225663, 0, 0, 0, 1, 0, 0, 0, 1.4955719, -0.34547856, 0, 0)
+transform = Transform3D(3.3225663, 0, 0, 0, 1.3735961, 0, 0, 0, 1.4955719, -0.34547856, 0.3078034, 0)
 shape = SubResource("BoxShape3D_1sfmx")
 
 [node name="VehicleWheelFL" type="VehicleWheel3D" parent="." unique_id=1352343715 groups=["FrontWheel"]]
@@ -175,13 +190,14 @@ grow_vertical = 2
 
 [node name="Steering" type="HSlider" parent="UI/Control" unique_id=2112242560]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 45.0
-offset_top = -78.0
-offset_right = 395.0
-offset_bottom = -41.0
+offset_left = 11.0
+offset_top = 584.0
+offset_right = -710.0
+offset_bottom = -28.0
+grow_horizontal = 2
 grow_vertical = 0
 min_value = -1.0
 max_value = 1.0
@@ -203,27 +219,24 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Gas_pedal" type="Button" parent="UI/Control" unique_id=2103042313]
-modulate = Color(0, 1, 0.007843138, 1)
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control" unique_id=412958421]
 layout_mode = 1
-anchors_preset = 11
+anchors_preset = -1
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -161.0
-offset_top = 448.0
+offset_left = -545.0
+offset_top = -273.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Brake" type="Button" parent="UI/Control" unique_id=928482346]
-modulate = Color(1, 0, 0, 0.62352943)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -454.0
-offset_top = 448.0
-offset_right = -293.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="BrakeButton" type="TouchScreenButton" parent="UI/Control/HBoxContainer" unique_id=379494095]
+position = Vector2(50, 53)
+scale = Vector2(2.78125, 2.90625)
+texture_normal = SubResource("GradientTexture2D_u41r7")
+
+[node name="GasButton" type="TouchScreenButton" parent="UI/Control/HBoxContainer" unique_id=40596575]
+position = Vector2(295, 37.000004)
+scale = Vector2(3.2343748, 3.1093743)
+texture_normal = SubResource("GradientTexture2D_1sfmx")
