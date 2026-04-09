@@ -43,6 +43,7 @@ var drop_gear = 1.28
 var CWP = 2.88
 var rpm
 var torque
+var gear_up = false
 
 var dt = 0
 
@@ -129,33 +130,32 @@ func _physics_process(delta):
 		else:
 			steering = move_toward(steering, Input.get_axis("right","left") * MAX_STEER, delta *stearing_speed)
 			
-		if rpm < 9000:
+		if rpm < 9000 and dt > 15:
 			torque = torque_calc(rpm,-1/56250000,115000/56250000, 0.5)
 			engine_force = int(Input.is_action_pressed("up")) * ENGINE_POWER * gear_ratio[actual_gear+1] * drop_gear * CWP  * torque
 		else:
 			engine_force = 0
+			for wheel in wheel_list:
+				if wheel.use_as_traction:
+					WheelRL.brake = BRAKE_POWER
 		WheelFL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
 		WheelFR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * brake_balance
 		WheelRL.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
 		WheelRR.brake = int(Input.is_action_pressed("down")) * BRAKE_POWER * (1-brake_balance)
 			
 
-			
 	if Global.steering_type == "Slider":
 		control.visible = true
 		Global.gear_box_type = "a"
 		steering  = steering_value(steering_slider.value*-1, .1, MAX_STEER)
 		
-		if rpm < 9000:
+		if rpm < 9000 and dt > 15:
 			torque = torque_calc(rpm,-1/56250000,115000/56250000, 0.5)/2
 			engine_force = int(gas_button.is_pressed()) * ENGINE_POWER * gear_ratio[actual_gear+1] * drop_gear * CWP  * torque
 		else:
 			engine_force = 0
 		
-		if rpm > 9000 and actual_gear < 6 and  Global.gear_box_type == "a":
-			actual_gear += 1
-		if rpm < 6500 and actual_gear > 1:
-			actual_gear -= 1
+
 				
 		WheelFL.brake = int(brake_button.is_pressed()) * BRAKE_POWER * brake_balance
 		WheelFR.brake = int(brake_button.is_pressed()) * BRAKE_POWER * brake_balance
@@ -164,7 +164,7 @@ func _physics_process(delta):
 		
 		
 	for i in range(len(wheel_list)):
-		if wheel_list[i].get_skidinfo() < 0.8 and wheel_list[i].global_position.distance_to(last_skid_pos[i]) > 0.2:
+		if wheel_list[i].get_skidinfo() < 0.8 and wheel_list[i].global_position.distance_to(last_skid_pos[i]) > 0:
 			var decal = preload("res://Scenes/skid_mark.tscn").instantiate()
 			decal.position = wheel_list[i].global_position
 			decal.position.y -= .3
@@ -182,7 +182,20 @@ func _physics_process(delta):
 		actual_gear -= 1
 		dt = 0
 	
-
+	
+	if rpm > 8000 and actual_gear < 6 and  Global.gear_box_type == "a" and dt > 15:
+		actual_gear += 1
+		dt = 0
+		gear_up = true
+	elif rpm < 6500 and actual_gear > 1 and  Global.gear_box_type == "a" and dt > 15:
+		if gear_up and dt > 60:
+			actual_gear -= 1
+			dt = 0
+			gear_up = false
+		elif not gear_up and dt > 15:
+			actual_gear -= 1
+			dt = 0
+			
 #	print("")
 #	print(str(WheelFL.get_skidinfo()) + "\t" + str(WheelFR.get_skidinfo()))
 #	print(str(WheelRL.get_skidinfo()) + "\t" + str(WheelRR.get_skidinfo()))
