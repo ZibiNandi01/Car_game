@@ -2,7 +2,7 @@ extends Node
 
 var suspension_stiffnessF = 90
 var suspension_stiffnessR = 90
-var steering_type = "Slider"
+var steering_type = "Button"
 var gear_box_type = "a"  # "a" = automatic, "m" = manual
 
 # Called when the node enters the scene tree for the first time.

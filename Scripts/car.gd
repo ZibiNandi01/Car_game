@@ -12,7 +12,7 @@ extends VehicleBody3D
 
 @export var MAX_STEER = 0.5
 @export var ENGINE_POWER = 50000
-@export var BRAKE_POWER = 50
+@export var BRAKE_POWER = 25
 
 @export var control: Control
 @export var steering_slider: HSlider

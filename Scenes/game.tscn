@@ -1,11 +1,64 @@
 [gd_scene format=3 uid="uid://bfe0svk5g68jr"]
 
 [ext_resource type="PackedScene" uid="uid://kcbyyiswvcxd" path="res://Scenes/test_track.tscn" id="1_qxrlw"]
+[ext_resource type="Script" uid="uid://upkaj26b7xrb" path="res://Scripts/game.gd" id="1_wrm1d"]
 
 [node name="Game" type="Node3D" unique_id=2054967099]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1817314595]
-transform = Transform3D(1, 0, 0, 0, -0.6890254, 0.7247372, 0, -0.7247372, -0.6890254, 0, 4.42093, -13.345305)
+script = ExtResource("1_wrm1d")
 
 [node name="Track" parent="." unique_id=1209024042 instance=ExtResource("1_qxrlw")]
+
+[node name="PauseMenu" type="Control" parent="." unique_id=562240730]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PauseMenu" unique_id=1289510867]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -98.25
+offset_right = 142.0
+offset_bottom = 98.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Panel" unique_id=412675495]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -23.5
+offset_right = 20.0
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/VBoxContainer" unique_id=639810331]
+layout_mode = 2
+text = "Pause"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/Panel/VBoxContainer" unique_id=1162073679]
+layout_mode = 2
+text = "Resume"
+
+[node name="Quit" type="Button" parent="PauseMenu/Panel/VBoxContainer" unique_id=1488411315]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Resume" to="PauseMenu/Panel/VBoxContainer/Resume" method="_on_pressed"]
+[connection signal="pressed" from="PauseMenu/Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

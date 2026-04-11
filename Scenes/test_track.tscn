@@ -31,6 +31,13 @@ albedo_texture = ExtResource("5_wbh00")
 uv1_scale = Vector3(5, 5, 5)
 uv1_triplanar = true
 
+[sub_resource type="Environment" id="Environment_ekmfy"]
+ambient_light_source = 1
+reflected_light_source = 2
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ekmfy"]
+viewport_path = NodePath("SubViewport")
+
 [node name="TestTrack" type="Node3D" unique_id=2054967099]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
@@ -110,5 +117,29 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wowpa")
 
 [node name="Garage" parent="." unique_id=364090337 instance=ExtResource("6_onqy5")]
 transform = Transform3D(-1.0770373e-07, 0, -2.0999997, 0, 4.4303017, 0, 2.463974, 0, -9.179391e-08, -26.866947, 0.16699287, 12.420441)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1890314497]
+environment = SubResource("Environment_ekmfy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=3223448]
+transform = Transform3D(1, 0, 0, 0, -0.57463396, 0.8184106, 0, -0.8184106, -0.57463396, -1.3114476, 4.405051, -2.4931996)
+light_energy = 0.305
+shadow_enabled = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1390692298]
+size = Vector2i(1024, 512)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=609337151]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -81.57776, 283.64264, -0.10449992)
+
+[node name="Window" type="Window" parent="." unique_id=2117370435]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(1024, 600)
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Window" unique_id=1080127075]
+position = Vector2(527, 200)
+texture = SubResource("ViewportTexture_ekmfy")
 
 [connection signal="body_entered" from="finish_line" to="Car" method="_on_finish_line_body_entered"]
