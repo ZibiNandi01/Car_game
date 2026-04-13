@@ -38,6 +38,7 @@ func _ready():
 func _button_pressed_play():
 	main_menu.visible = false
 	play.visible = true
+	back.visible = true
 	
 
 func _button_pressed_settings():

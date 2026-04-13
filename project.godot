@@ -22,8 +22,6 @@ NetworHandler="*uid://d118pumvwcth6"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
 window/subwindows/embed_subwindows=false
 
 [dotnet]
