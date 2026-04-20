@@ -8,6 +8,7 @@ extends VehicleBody3D
 @onready var WheelFR = $VehicleWheelFR
 @onready var WheelRL = $VehicleWheelRL
 @onready var WheelRR = $VehicleWheelRR
+@onready var camera = $Camera3D
 
 
 @export var MAX_STEER = 0.5
@@ -111,8 +112,10 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if Global.is_multiplayer:
-			if !multiplayer.is_server(): return
+			if !multiplayer.is_server() or !is_multiplayer_authority(): return
 
+	camera.make_current()
+	
 	var wheel_list = [WheelFL, WheelFR, WheelRL, WheelRR]
 	
 	WheelFL.suspension_stiffness = Global.suspension_stiffnessF

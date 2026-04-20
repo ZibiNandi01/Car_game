@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bu7ukjps2arja"]
 
-[ext_resource type="Script" uid="uid://bb3sifau7w7uf" path="res://Scripts/car_singleplayer.gd" id="1_hx4cu"]
+[ext_resource type="Script" uid="uid://bb3sifau7w7uf" path="res://Scripts/car.gd" id="1_hx4cu"]
 [ext_resource type="PackedScene" uid="uid://bwsyvy6gwpfyg" path="res://Assets/auto0.glb" id="2_olmqf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1sfmx"]
@@ -24,6 +24,8 @@ colors = PackedColorArray(0, 0.9490196, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1sfmx"]
 gradient = SubResource("Gradient_go66d")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_go66d"]
 
 [node name="Car" type="VehicleBody3D" unique_id=336185123 node_paths=PackedStringArray("SPEEDOMETER_LABEL", "GearLabel", "control", "steering_slider", "gas_button", "brake_button", "self_node", "rev_disp", "CURRENT_TIME_LABEL", "FASTEST_TIME_LABEL", "LAST_LAP")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -319,3 +321,6 @@ offset_top = 50.0
 offset_right = 26.5
 offset_bottom = 94.0
 grow_horizontal = 2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1239510302]
+replication_config = SubResource("SceneReplicationConfig_go66d")
