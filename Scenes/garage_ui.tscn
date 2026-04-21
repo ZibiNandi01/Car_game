@@ -53,7 +53,7 @@ label_settings = SubResource("LabelSettings_cs0as")
 layout_mode = 2
 theme = SubResource("Theme_gtvex")
 min_value = 50.0
-max_value = 180.0
+max_value = 1000.0
 value = 50.0
 
 [node name="SuspensionStiffnessRLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2043421797]
@@ -64,7 +64,7 @@ label_settings = SubResource("LabelSettings_cs0as")
 layout_mode = 2
 theme = SubResource("Theme_gtvex")
 min_value = 50.0
-max_value = 180.0
+max_value = 1000.0
 value = 50.0
 
 [node name="MainMenu" type="Button" parent="Panel/VBoxContainer" unique_id=1937374270]
